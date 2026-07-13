@@ -22,7 +22,7 @@ The mobile app should let a user configure an OpenRouter API key, pick a council
 
 ### Expo vs. bare React Native
 
-Expo (managed or with dev client) is the faster path to a working app and handles a lot of the native build tooling automatically. The tradeoff is native module flexibility — `react-native-keychain` and most SQLite libraries work fine under Expo's dev client / EAS build today, so Expo is the recommended starting point unless a specific native requirement surfaces that forces ejecting.
+**Decided: bare React Native CLI.** An Expo scaffold was tried first but proved too hard to set up; the project ejected to bare RN (`apps/mobilecli`) instead. This trades away Expo/EAS's automatic native build tooling for direct ownership of Gradle/CocoaPods/Xcode config, but keeps the door open for React Native for Windows in Phase 2 (see below).
 
 ## App Architecture
 
@@ -54,7 +54,7 @@ The OpenRouter API key is the main sensitive asset. It should be stored only in 
 
 ## Open Questions
 
-A few decisions are worth pinning down before or during scaffolding: whether Phase 1 targets Expo managed workflow or bare RN from the start, what the partial-failure policy is when a council member times out, whether history sync across devices is a Phase 1 requirement or explicitly deferred, and whether there's an existing web app codebase/API layer that should be shared or ported rather than rebuilt.
+A few decisions are worth pinning down: what the partial-failure policy is when a council member times out, whether history sync across devices is a Phase 1 requirement or explicitly deferred, and whether there's an existing web app codebase/API layer that should be shared or ported rather than rebuilt.
 
 ## Phase 2 Preview (Desktop)
 
