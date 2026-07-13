@@ -1,13 +1,10 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {Button, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TextInput, View} from 'react-native';
 import {createSingleModelChatController, type ChatSnapshot} from './singleModelChat';
+import {createOpenRouterTransport} from './openRouterTransport';
+import {OPENROUTER_API_KEY} from './openRouterKey.local';
 
-async function* fakeStream(text: string) {
-  const chunks = text.split('');
-  for (const chunk of chunks) {
-    yield chunk;
-  }
-}
+const MODEL_NAME = 'openai/gpt-4.1-mini';
 
 export function SingleModelChatScreen() {
   const [snapshot, setSnapshot] = useState<ChatSnapshot>({status: 'idle', messages: []});
@@ -16,8 +13,8 @@ export function SingleModelChatScreen() {
   const controller = useMemo(
     () =>
       createSingleModelChatController({
-        modelName: 'gpt-4.1-mini',
-        transport: async (_prompt) => fakeStream('This is a placeholder assistant reply from the business logic layer.'),
+        modelName: MODEL_NAME,
+        transport: createOpenRouterTransport(OPENROUTER_API_KEY, MODEL_NAME),
       }),
     [],
   );
